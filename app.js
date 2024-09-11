@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const busRoutes = require("./routes/busRoutes");
 const connectDB = require("./config/db");
-const setupSocket = require("./config/socketconfig");
+const setupSocket = require("./config/socketConfig");
 
 dotenv.config();
 connectDB();
@@ -24,7 +24,7 @@ app.use("/api/buses", busRoutes);
 // Socket events
 require("./sockets/socketEvents")(io);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

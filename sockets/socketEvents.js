@@ -6,10 +6,14 @@ const setupSocketEvents = (io) => {
 
     socket.on("update location", async (data) => {
       const { id, latitude, longitude } = data;
-      await Bus.findByIdAndUpdate(id, {
-        currentLocation: { latitude, longitude },
-      });
-      io.emit("bus location update", { id, latitude, longitude });
+      try {
+        await Bus.findByIdAndUpdate(id, {
+          currentLocation: { latitude, longitude },
+        });
+        io.emit("bus location update", { id, latitude, longitude });
+      } catch (error) {
+        console.error("Error updating bus location via socket:", error);
+      }
     });
 
     socket.on("disconnect", () => {
